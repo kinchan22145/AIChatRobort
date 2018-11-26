@@ -6,12 +6,17 @@
 
 <script>
 import AIChatLayout from "../components/AIChatLayout.vue";
+import ConfigService from "../service/config.service.js";
 
 export default{
     name:'App',
     data() {
         return {
-            
+        }
+    },
+    provide: function () {
+        return {
+            configSrc: new ConfigService()
         }
     },
     components:{

@@ -19,10 +19,12 @@
         width: 50px;
         height: 50px;
         border-radius: 50px;
+        border: 2px #EDEDED solid;
 
         img{
             width: 100%;
             height: 100%;
+            border-radius: 50%;
         }
     }
 </style>

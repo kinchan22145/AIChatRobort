@@ -19,6 +19,12 @@ module.exports = (env, argv) => {
         },
         devtool: 'inline-source-map',
         plugins: [
+            new CopyWebpackPlugin([
+                {
+                    from:path.resolve(__dirname,'config',argv.mode+'.config.json'),
+                    to:  path.resolve(__dirname,'dist','app.config.json')
+                }
+            ]),
             new VueLoaderPlugin(),
             new HtmlWebpackPlugin({
                 filename: 'index.html',
@@ -27,10 +33,12 @@ module.exports = (env, argv) => {
             }),
             new ExtractTextPlugin("styles/style.[hash].css")
             // new BundleAnalyzerPlugin()
+            
         ],
         resolve: {
             alias: {
-                'vue$': 'vue/dist/vue.esm.js'
+                // '@config$': path.join(__dirname, '..','..','config/'+argv.mode+'.json'),
+                'vue$': 'vue/dist/vue.esm.js',
             }
         },
         module: {
@@ -77,6 +85,10 @@ module.exports = (env, argv) => {
                             })
                         }
                     }
+                },
+                {
+                    test: /\.json$/,
+                    loader: 'json-loader'
                 }
             ]
         }

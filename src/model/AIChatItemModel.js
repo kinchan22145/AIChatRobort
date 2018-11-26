@@ -1,4 +1,4 @@
-import getUUID from "../utilis/UUIDUtilis.js";
+import getUUID from "../utils/UUIDUtils.js";
 
 export default class AIChatItemModel{
     constructor(msg){

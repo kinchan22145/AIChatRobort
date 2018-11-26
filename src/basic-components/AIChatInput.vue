@@ -23,12 +23,9 @@ export default {
   },
   methods: {
     focusInput() {
-      // debugger;
       let inputElement = this.$el.firstElementChild;
       inputElement.disabled = false;
       inputElement.focus();
-      // console.log(this.$el.firstElementChild);
-      // console.log(123)
     }
   }
 };

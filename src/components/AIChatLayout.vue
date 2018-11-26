@@ -28,13 +28,13 @@ import Vue from "vue"
 
 <style lang="scss" scoped>
     .chat-shower-container{
-        height: 70%;
+        height: 60%;
         width: 100%;
+        border-bottom: 1px #EDEDED solid;
         // padding:3px
     }
     .chat-sender-container{
-        height: 30%;
+        height: 40%;
         width: 100%;
-        // padding:3px
     }
 </style>

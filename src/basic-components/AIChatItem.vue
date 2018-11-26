@@ -71,6 +71,7 @@ export default {
   }
   .chat-msg {
     max-width: 300px;
+    min-height: 19px;
     display: inline-block;
     background: #FFFFFF;
     border-radius: 3px;

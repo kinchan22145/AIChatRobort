@@ -56,6 +56,7 @@
         height: 100%;
         overflow-y: scroll;
         background: #F5F5F5;
+        
 
         .chat-items-container{
             height: max-content;
