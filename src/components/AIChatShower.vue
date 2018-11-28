@@ -1,13 +1,16 @@
 <template>
     <div class="chat-shower">
         <div class="chat-items-container" >
-            <AIChatItem v-for="item of chatItemList" :key="item.key" :msg="item.value" :isMe="item.isMe" />
+            <AIChatItem v-for="item of chatItemList" :key="item.key" :isMe="item.isMe">
+                <AIChatContent :value="item.value" />
+            </AIChatItem>
         </div>
     </div>
 </template>
 
 <script>
     import AIChatItem from "../basic-components/AIChatItem.vue";
+    import AIChatContent from "../basic-components/AIChatContent.vue";
     import AIChatItemModel from "../model/AIChatItemModel.js";
     export default {
         props: ['bus'],
@@ -21,11 +24,7 @@
                 let outterEl = this.$el;
                 if(outterEl){
                     let innerEl = outterEl.firstElementChild;
-                    debugger;
                     if(innerEl){
-                        if(outterEl.clientHeight<innerEl.offsetHeight){
-                            debugger;
-                        }
                         return outterEl.clientHeight<innerEl.offsetHeight;
                     }
                 }
@@ -45,7 +44,8 @@
             });
         },
         components:{
-            AIChatItem
+            AIChatItem,
+            AIChatContent
         }
     }
 </script>
@@ -55,7 +55,7 @@
         width: 100%;
         height: 100%;
         overflow-y: scroll;
-        background: #F5F5F5;
+        background: #EEEEEE;
         
 
         .chat-items-container{

@@ -7,6 +7,8 @@
 <script>
 import AIChatLayout from "../components/AIChatLayout.vue";
 import ConfigService from "../service/config.service.js";
+import 'font-awesome/css/font-awesome.min.css'
+
 
 export default{
     name:'App',

@@ -1,13 +1,12 @@
 <template>
     <div class="chat-sender"> 
-      <div class="bar"">
-      <i class="bar-item iconfont icon-face" @click="showEmoji = !showEmoji"></i>       
+      <div class="bar" >
+        <i class="bar-item fa fa-smile-o" aria-hidden="true" @click="showEmoji = !showEmoji"></i>     
         <transition name="fade" mode="">
-        <div class="emoji-box" v-if="showEmoji" >
+        <div class="emoji-box" :class="{'show-top':emojiBoxPosition()}" v-if="showEmoji" >
             <vue-emoji
               @select="selectEmoji">
             </vue-emoji>
-          <span class="pop-arrow arrow"></span>
         </div>       
       </transition>
       </div>
@@ -18,7 +17,8 @@
 
 <script>
 import AIChatInput from "../basic-components/AIChatInput.vue";
-import vueEmoji from "./emoji.vue";
+import vueEmoji from "../basic-components/AIChatEmoji.vue";
+
 export default {
   props: ["bus"],
   data() {
@@ -31,14 +31,19 @@ export default {
   inject: ["configSrc"],
   methods: {    
     selectEmoji (code) {
-      this.showEmoji = false
-      this.sentence += code
+      this.showEmoji = false;
+      this.sentence += code;
+      this.$refs.input.focusInput();
     },
-    sendMsg() {
+    emojiBoxPosition(){
+      var barEl = this.$el.firstElementChild;
+      return ((barEl.offsetTop+barEl.offsetHeight+206)<document.documentElement.clientHeight)?false:true;
+    },
+    sendMsg(e) {
       if (this.disableInput === false) {
         this.disableInput = true;
         let reqrestion = this.sentence;
-        this.sentence = "请耐心等待小emotibot的回答。。。";
+        this.sentence = "请耐心等待小飞的回答。。。";
         this.bus.$emit(
           "onMsg",
           new Promise((res, rej) => {
@@ -50,7 +55,7 @@ export default {
           form.append("cmd", "chat");
           form.append("appid", this.configSrc.getConfigByKey("appid"));
           form.append("userid", this.configSrc.getConfigByKey("userid"));
-          form.append("text", this.reqrestion);
+          form.append("text", reqrestion);
 
           var request = new XMLHttpRequest();
           request.open("POST", this.configSrc.getConfigByKey("url"));
@@ -75,14 +80,13 @@ export default {
       }
     }
   },
-  mounted(){
-    window.addEventListener('click',(e)=>{this.showEmoji=false});
-  },
   components: {
     AIChatInput,
     vueEmoji
   }
 };
+
+
 </script>
 
 <style lang="scss" scoped>
@@ -107,14 +111,23 @@ export default {
       display: inline-block;
       height: 30px;
       width: 30px;
-      background: blueviolet;
-      color: #f7ba2a;
+      margin: auto 10px;
+      font-size: 30px;
+      color: gray;
+
+      &:hover{
+        color: orange;
+      }
     }
     .emoji-box {
       position: absolute;
       z-index: 10;
       box-shadow: 0 4px 20px 1px rgba(0, 0, 0, 0.2);
       background: white;
+
+      &.show-top{
+        bottom: 40px;
+      }
     }
   }
 
@@ -164,19 +177,4 @@ export default {
   transition: transform 0.4s;
 }
 
-.list-enter-active,
-.list-leave-active {
-  transition: all 0.5s;
-}
-.list-enter,
-.list-leave-active {
-  opacity: 0;
-  transform: translateX(30px);
-}
-.list-leave-active {
-  position: absolute !important;
-}
-.list-move {
-  transition: all 0.5s;
-}
 </style>

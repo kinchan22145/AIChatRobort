@@ -2,6 +2,7 @@ export default class ConfigService{
 
     constructor(){
         this.configCahe = null;
+        this.loadConfig();
     }
 
     loadConfig(){
@@ -19,7 +20,7 @@ export default class ConfigService{
         if(this.configCahe===null){
             this.loadConfig();
         }
-        console.log(this.configCahe);
+        // console.log(this.configCahe);
         return this.configCahe[key];
     }
 }

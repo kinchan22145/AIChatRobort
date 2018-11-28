@@ -3,7 +3,9 @@
         <div class='chat-component' :class="{'is-me':isMe}">
             <AIChatIcon class="icon" :imgUrl="icon"/>
             <div class='chat-tri'><span></span></div>
-            <div class='chat-msg'>{{msg}}</div>
+            <div class='chat-msg'>
+              <slot></slot>
+            </div>
         </div>
     </div>
 </template>
@@ -17,9 +19,12 @@ const iconMap = {
 export default {
   name: "AIChatItem",
   data() {
+    // return {
+    //   chatHeight: "50px"
+    // };
     return {
-      chatHeight: "50px"
-    };
+      
+    }
   },
   props: {
     isMe: {

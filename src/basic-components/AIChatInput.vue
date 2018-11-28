@@ -1,6 +1,6 @@
 <template>
     <div>
-        <textarea class='inputer' :value="value" :disabled="disabled" @input="$emit('input',$event.target.value)" @keyup.ctrl.enter="$emit('clickEnter')" />
+        <textarea class='inputer' :value="value" :disabled="disabled" @input="$emit('input',$event.target.value)" @keyup.enter="!$event.ctrlKey?$emit('clickEnter'):null" @keyup.ctrl.enter="addLineBreake" />
     </div>
 </template>
 
@@ -9,7 +9,14 @@
 export default {
   name: "AIChatInput",
   data() {
-    return {};
+    return {
+      // valueData:this.value
+    };
+  },
+  computed: {
+    valueData() {
+      return this.value; 
+    }
   },
   props: {
     value: {
@@ -26,6 +33,11 @@ export default {
       let inputElement = this.$el.firstElementChild;
       inputElement.disabled = false;
       inputElement.focus();
+    },
+    addLineBreake(){
+       var newData = this.valueData+'\n';
+      console.log(newData);
+      this.$emit('input',newData);
     }
   }
 };
@@ -38,6 +50,11 @@ export default {
   border: none;
   resize: none;
   font-size: 18px;
+
+  &:disabled{
+    background: #FFFFFF;
+    color: gray;
+  }
 }
 
 textarea:focus {
